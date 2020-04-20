@@ -14,8 +14,6 @@ spec:
       kind: Service
     - group: apps
       kind: Deployment
-    - group: apps
-      kind: StatefulSet
   descriptor:
     version: "0.0.1"
     description: "Validate KOTS."

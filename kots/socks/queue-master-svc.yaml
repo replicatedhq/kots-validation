@@ -7,7 +7,6 @@ metadata:
     name: queue-master
   annotations:
     prometheus.io/path: "/prometheus"
-  namespace: sock-shop
 spec:
   ports:
     # the port that this service should serve on
