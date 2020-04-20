@@ -3,7 +3,6 @@ bases:
 
 resources:
   - ./secrets.yaml
-  - ./service.yaml
 
 patches:
   - ./deployment.yaml

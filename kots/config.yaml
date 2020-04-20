@@ -10,19 +10,19 @@ spec:
       items:
         - name: postgres_type
           type: select_one
-          title: Mysql
-          default: embedded_mysql
+          title: Postgres
+          default: embedded_postgres
           items:
-            - name: embedded_mysql
-              title: Embedded Mysql
-            - name: external_mysql
-              title: External Mysql
-        - name: embedded_mysql_password
+            - name: embedded_postgres
+              title: Embedded Postgres
+            - name: external_postgres
+              title: External Postgres
+        - name: embedded_postgres_password
           hidden: true
           type: password
           value: "{{repl RandomString 32}}"
-        - name: external_mysql_uri
-          title: Mysql URI
+        - name: external_postgres_uri
+          title: Postgres URI
           when: '{{repl ConfigOptionEquals "postgres_type" "external_postgres"}}'
           type: password
           default: db.mycompany.internal
