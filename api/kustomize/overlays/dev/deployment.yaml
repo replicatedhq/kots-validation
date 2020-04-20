@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kotsbots-api
+spec:
+  template:
+    spec:
+      containers:
+        - name: kotsbots-api
+          env:
+            - name: DATABASE_URL
+              value: postgres://kotsbots:password@postgres.default.svc.cluster.local:5432/kotsbots?sslmode=disable
+            - name: FRONTEND_URL
+              value: http://127.0.0.1:30080
+            - name: DISABLE_SPA_SERVING
+              value: "1"
+

@@ -1,7 +1,7 @@
 apiVersion: troubleshoot.replicated.com/v1beta1
 kind: Collector
 metadata:
-  name: replicated-validation
+  name: kots-bots
 spec:
   collectors:
     - clusterInfo: {}

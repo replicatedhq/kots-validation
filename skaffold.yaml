@@ -1,0 +1,25 @@
+apiVersion: skaffold/v2beta2
+kind: Config
+
+build:
+  local:
+    useBuildkit: true
+    concurrency: 0
+
+  artifacts:
+    - image: kotsbots-api
+      context: "./api"
+      docker:
+        dockerfile: ./Dockerfile.skaffold
+
+    - image: kotsbots-postgres
+      context: "./migrations/fixtures"
+      docker:
+        dockerfile: ./deploy/Dockerfile
+
+deploy:
+  kustomize:
+    paths: ["./kustomize/overlays/dev"]
+    flags:
+      apply:
+        - --validate=false

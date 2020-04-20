@@ -2,6 +2,49 @@ name: "Build, test and deploy"
 on: [push]
 
 jobs:
+  build-and-test-api:
+    runs-on: ubuntu-latest
+    needs: [build-fixtures]
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-go@v1
+        with:
+          go-version: '1.14.1'
+      - run: make -C api build
+
+  # build-web-kots:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/setup-node@v1
+  #     with:
+  #       node-version: "10.x"
+  #   - uses: actions/checkout@master
+  #   - run: make -C web build-kots
+  #   - run: tar czf ./web-kots.tar.gz ./web
+  #   - uses: actions/upload-artifact@v1
+  #     with:
+  #       name: web-kots.tar.gz
+  #       path: web-kots.tar.gz
+
+  # publish-api:
+  #   runs-on: ubuntu-latest
+  #   needs: [build-and-test-api, build-web-kots]
+  #   steps:
+  #     - uses: azure/docker-login@v1
+  #       with:
+  #         username: ??
+  #         password: ${{ secrets.REGISTRY_PASSWORD }}
+  #     - uses: actions/checkout@master
+  #     - uses: actions/download-artifact@v1
+  #       with:
+  #         name: web-kots.tar.gz
+  #         path: ./api
+  #     - run: mkdir -p api/dist-kots
+  #     - run: tar xzf api/web-kots.tar.gz
+  #     - run: mkdir -p ./api/web/dist-kots && mv ./web/dist-kots/* ./api/web/dist-kots
+  #     - run: ls -al api/web/dist-kots
+  #     - run: make -C api publish
+
   kots:
     runs-on: ubuntu-latest
     name: kots
@@ -9,11 +52,46 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
+      - name: "kustomize build api kots"
+        uses: marccampbell/kustomize-github-action@set-image
+        with:
+          kustomize_version: "2.0.3"
+          kustomize_build_dir: "api/kustomize/overlays/kots"
+          kustomize_output_file: "kots/api.yaml"
+          kustomize_set_image: "kotsbots-api=registry.replicated.com/kots-bots/api:kots-${{ github.sha }}"
+
+      - name: "kustomize build migrations kots"
+        uses: marccampbell/kustomize-github-action@set-image
+        with:
+          kustomize_version: "2.0.3"
+          kustomize_build_dir: "migrations/kustomize/overlays/kots"
+          kustomize_output_file: "kots/schema.yaml"
+          kustomize_set_image: "kotsbots-migrations=registry.replicated.com/kots-bots/migrations:${{ github.sha }}"
+
+      - name: Split the api doc
+        uses: marccampbell/yaml-toolbox/action/split@master
+        with:
+          path: ./kots/api.yaml
+          out: ./kots/api
+      - run: rm ./kots/api.yaml
+
+      - name: Split the schema doc
+        uses: marccampbell/yaml-toolbox/action/split@master
+        with:
+          path: ./kots/schema.yaml
+          out: ./kots/schema
+      - run: rm ./kots/schema.yaml
+
+      - name: Remarshal the release
+        uses: marccampbell/yaml-toolbox/action/remarshal@master
+        with:
+          path: ./kots
+
       - name: Lint the release
         id: lint-action
         uses: replicatedhq/action-kots-lint@v0.1.0
         with:
-          replicated-app: "replicated-validation"
+          replicated-app: "kots-bots"
           replicated-api-token: ${{ secrets.REPLICATED_API_TOKEN }}
           yaml-dir: ./kots
           extra-flags: --beta-linter
@@ -22,7 +100,7 @@ jobs:
         uses: replicatedhq/action-kots-release@master
         if: github.ref == 'refs/heads/release'
         with:
-          replicated-app: "replicated-validation"
+          replicated-app: "kots-bots"
           replicated-api-token: ${{ secrets.REPLICATED_API_TOKEN }}
           yaml-dir: ./kots
           promote-channel: "Beta"
@@ -31,7 +109,7 @@ jobs:
         uses: replicatedhq/action-kots-release@master
         if: github.ref == 'refs/heads/master'
         with:
-          replicated-app: "replicated-validation"
+          replicated-app: "kots-bots"
           replicated-api-token: ${{ secrets.REPLICATED_API_TOKEN }}
           yaml-dir: ./kots
           promote-channel: "Unstable"

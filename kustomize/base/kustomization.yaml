@@ -1,0 +1,7 @@
+bases:
+  - ../../api/kustomize/overlays/dev
+  # - ../../web/kustomize/overlays/dev
+  - ../../migrations/kustomize/overlays/dev
+
+resources:
+  - ./redis.yaml

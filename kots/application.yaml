@@ -1,14 +1,14 @@
 apiVersion: app.k8s.io/v1beta1
 kind: Application
 metadata:
-  name: replicated-validation
+  name: kots-bots
   labels:
-    app.kubernetes.io/name: "replicated-validation"
+    app.kubernetes.io/name: "kots-bots"
     app.kubernetes.io/version: "0.0.1"
 spec:
   selector:
     matchLabels:
-     app.kubernetes.io/name: "replicated-validation"
+     app.kubernetes.io/name: "kots-bots"
   componentKinds:
     - group: core
       kind: Service
@@ -20,4 +20,4 @@ spec:
     icons:
       - src: "https://pbs.twimg.com/profile_images/941487750993162241/D7uE1CDy_400x400.jpg"
         type: "image/png"
-    type: "replicated-validation"
+    type: "kots-bots"

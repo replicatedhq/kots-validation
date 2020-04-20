@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kotsbots-api
+spec:
+  selector:
+    matchLabels:
+      app: kotsbots-api
+  template:
+    metadata:
+      labels:
+        app: kotsbots-api
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: kotsbots-api
+          image: kotsbots-api
+          imagePullPolicy: IfNotPresent
+          command: ["/kotsbots-api", "run"]
+          ports:
+            - name: http
+              containerPort: 3000

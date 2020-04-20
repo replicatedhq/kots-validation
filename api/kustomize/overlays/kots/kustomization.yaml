@@ -1,0 +1,9 @@
+bases:
+  - ../../base
+
+resources:
+  - ./secrets.yaml
+  - ./service.yaml
+
+patches:
+  - ./deployment.yaml

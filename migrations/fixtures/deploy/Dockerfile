@@ -1,0 +1,6 @@
+FROM postgres:10.7
+
+ENV POSTGRES_USER=kotsbots
+ENV POSTGRES_PASSWORD=password
+ENV POSTGRES_DB=kotsbots
+

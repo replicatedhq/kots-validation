@@ -1,0 +1,94 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  labels:
+    app: postgres
+spec:
+  type: NodePort
+  ports:
+  - name: postgres
+    port: 5432
+    targetPort: postgres
+  selector:
+    app: postgres
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kotsbots-postgres
+  labels:
+    app: postgres
+type: Opaque
+stringData:
+  uri: "postgresql://kotsbots:password@postgres/kotsbots?connect_timeout=10&application_name=kotsbots&sslmode=disable"
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+spec:
+  selector:
+    matchLabels:
+      app: postgres
+  serviceName: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: postgres
+        image: kotsbots-postgres
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
+        - name: POSTGRES_USER
+          value: kotsbots
+        - name: POSTGRES_PASSWORD
+          value: password
+        - name: POSTGRES_DB
+          value: kotsbots
+        ports:
+        - name: postgres
+          containerPort: 5432
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -i
+            - -c
+            - pg_isready -U kotsbots -h 127.0.0.1 -p 5432
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -i
+            - -c
+            - pg_isready -U kotsbots -h 127.0.0.1 -p 5432
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+          periodSeconds: 10
+        volumeMounts:
+        - name: kotsbots-datadir
+          mountPath: /var/lib/postgresql/data
+
+      volumes:
+      - name: kotsbots-datadir
+        persistentVolumeClaim:
+          claimName: kotsbots-datadir
+
+  volumeClaimTemplates:
+  - metadata:
+      name: kotsbots-datadir
+    spec:
+      accessModes:
+      - "ReadWriteOnce"
+      resources:
+        requests:
+          storage: 1Gi

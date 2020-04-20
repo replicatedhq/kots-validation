@@ -1,0 +1,5 @@
+bases: 
+  - ../../kots
+
+resources:
+  - ./migrations.yaml
