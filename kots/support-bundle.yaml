@@ -1,0 +1,20 @@
+apiVersion: troubleshoot.replicated.com/v1beta1
+kind: Collector
+metadata:
+  name: replicated-validation
+spec:
+  collectors:
+    - clusterInfo: {}
+    - clusterResources: {}
+  analyzers:
+    - deploymentStatus:
+        name: nginx
+        outcomes:
+          - fail:
+              when: "< 1"
+              message: There are no ready replicas of Nginx.
+          - warn:
+              when: "= 1"
+              message: There is exactly 1 ready replica of Nginx.
+          - pass:
+              message: There are multiple ready replicas of Nginx.

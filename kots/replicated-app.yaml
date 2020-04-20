@@ -1,0 +1,7 @@
+apiVersion: kots.io/v1beta1
+kind: Application
+metadata:
+  name: replicated-validation
+spec:
+  title: Replicated Validation
+  icon: https://pbs.twimg.com/profile_images/941487750993162241/D7uE1CDy_400x400.jpg

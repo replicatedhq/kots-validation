@@ -1,0 +1,77 @@
+apiVersion: kots.io/v1beta1
+kind: Config
+metadata:
+  name: replicated-validation
+spec:
+  groups:
+    - name: general
+      title: Setup
+      items:
+        - name: hostname
+          type: text
+          required: true
+          title: Hostname
+    - name: database
+      title: Database
+      description: Database Options
+      items:
+        - name: postgres_type
+          type: select_one
+          title: Postgres
+          default: embedded_postgres
+          items:
+            - name: embedded_postgres
+              title: Embedded Postgres
+            - name: external_postgres
+              title: External Postgres
+        - name: embedded_postgres_password
+          hidden: true
+          type: password
+          value: "{{repl RandomString 32}}"
+        - name: external_postgres_uri
+          title: Postgres URI
+          when: '{{repl ConfigOptionEquals "postgres_type" "external_postgres"}}'
+          type: password
+          default: db.mycompany.internal
+    - name: networking
+      title: Networking and Ingress
+      items:
+        - name: service_type
+          type: select_one
+          title: Kubernetes Service Type
+          default: cluster_ip
+          items:
+            - name: cluster_ip
+              title: ClusterIP
+            - name: node_port
+              title: NodePort
+            - name: ingress
+              title: Ingress
+            - name: load_balancer
+              title: LoadBalancer
+        - name: node_port_port
+          title: Port (30000-32767)
+          type: text
+          default: "30888"
+          when: '{{repl ConfigOptionEquals "service_type" "node_port"}}'
+          required: true
+        - name: ingress_hostname
+          title: Ingress Hostname
+          type: text
+          default: '{{repl ConfigOption "hostname" }}'
+          when: '{{repl ConfigOptionEquals "service_type" "ingress"}}'
+          required: true
+        - name: allow_http
+          type: bool
+          title: Allow Unsecured Access through HTTP
+          description: |
+            Uncheck this box to disable HTTP traffic between the client and the load balancer.
+          default: "1"
+          when: '{{repl ConfigOptionEquals "service_type" "ingress"}}'
+        - name: annotations
+          type: textarea
+          title: Ingress Annotations
+          description: |
+            Use this textarea to provide annotations specific to your ingress controller.
+            For example, `kubernetes.io/ingress.class: alb` when using the ALB ingress controller.
+          when: '{{repl ConfigOptionEquals "service_type" "ingress"}}'

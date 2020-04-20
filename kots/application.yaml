@@ -1,0 +1,25 @@
+apiVersion: app.k8s.io/v1beta1
+kind: Application
+metadata:
+  name: replicated-validation
+  labels:
+    app.kubernetes.io/name: "replicated-validation"
+    app.kubernetes.io/version: "0.0.1"
+spec:
+  selector:
+    matchLabels:
+     app.kubernetes.io/name: "replicated-validation"
+  componentKinds:
+    - group: core
+      kind: Service
+    - group: apps
+      kind: Deployment
+    - group: apps
+      kind: StatefulSet
+  descriptor:
+    version: "0.0.1"
+    description: "Validate KOTS."
+    icons:
+      - src: "https://pbs.twimg.com/profile_images/941487750993162241/D7uE1CDy_400x400.jpg"
+        type: "image/png"
+    type: "replicated-validation"

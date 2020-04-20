@@ -1,0 +1,7 @@
+apiVersion: velero.io/v1
+kind: Backup
+metadata:
+  name: backup
+  annotations:
+    "kots.io/when": '{{repl ConfigOptionEquals "postgres_type" "embedded_postgres"}}'
+spec: {}

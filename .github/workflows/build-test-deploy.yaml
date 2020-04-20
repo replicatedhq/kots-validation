@@ -1,0 +1,37 @@
+name: "Build, test and deploy"
+on: [push]
+
+jobs:
+  kots:
+    runs-on: ubuntu-latest
+    name: kots
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Lint the release
+        id: lint-action
+        uses: replicatedhq/action-kots-lint@v0.1.0
+        with:
+          replicated-app: "replicated-validation"
+          replicated-api-token: ${{ secrets.REPLICATED_API_TOKEN }}
+          yaml-dir: ./kots
+          extra-flags: --beta-linter
+
+      - name: Create the beta release
+        uses: replicatedhq/action-kots-release@master
+        if: github.ref == 'refs/heads/release'
+        with:
+          replicated-app: "replicated-validation"
+          replicated-api-token: ${{ secrets.REPLICATED_API_TOKEN }}
+          yaml-dir: ./kots
+          promote-channel: "Beta"
+
+      - name: Create the unstable release
+        uses: replicatedhq/action-kots-release@master
+        if: github.ref == 'refs/heads/master'
+        with:
+          replicated-app: "replicated-validation"
+          replicated-api-token: ${{ secrets.REPLICATED_API_TOKEN }}
+          yaml-dir: ./kots
+          promote-channel: "Unstable"
