@@ -10,7 +10,12 @@ spec:
 
   # values are used in the customer environment, as a pre-render step
   # these values will be supplied to helm template
-  values: {}
+  values:
+    db:
+      name: sockdb
+      user: catalogue_user
+      password: default_password
+    initdbScriptsConfigMap: catalogue-db-data
 
   # builder values provide a way to render the chart with all images
   # and manifests. this is used in replicated to create airgap packages
