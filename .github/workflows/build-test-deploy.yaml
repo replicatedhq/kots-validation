@@ -39,10 +39,10 @@ jobs:
         with:
           name: web-kots.tar.gz
           path: ./api
-      - run: mkdir -p api/dist-kots
-      - run: tar xzf api/web-kots.tar.gz
-      - run: mkdir -p ./api/web/dist-kots && mv ./web/dist-kots/* ./api/web/dist-kots
-      - run: ls -al api/web/dist-kots
+      # - run: mkdir -p api/dist-kots
+      # - run: tar xzf api/web-kots.tar.gz
+      # - run: mkdir -p ./api/web/dist-kots && mv ./web/dist-kots/* ./api/web/dist-kots
+      # - run: ls -al api/web/dist-kots
       - run: make -C api publish
 
   publish-migrations:
