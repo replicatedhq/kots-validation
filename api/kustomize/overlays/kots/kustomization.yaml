@@ -1,8 +1,5 @@
 bases:
   - ../../base
 
-resources:
-  - ./secrets.yaml
-
 patches:
   - ./deployment.yaml
