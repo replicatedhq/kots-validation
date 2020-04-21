@@ -1,7 +1,7 @@
 {
-  "name": "kotsbots-app",
+  "name": "kotsvalidation-app",
   "version": "1.0.0",
-  "description": "KotsBots FrontEnd",
+  "description": "kotsvalidation FrontEnd",
   "author": "Replicated, Inc",
   "license": "Apache2",
   "scripts": {},

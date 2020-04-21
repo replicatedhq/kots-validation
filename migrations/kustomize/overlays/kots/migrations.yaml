@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: kotsbots-migrations
+  name: kotsvalidation-migrations
   annotations:
     "kots.io/hook-delete-policy": "hook-succeeded, hook-failed"
 spec:
@@ -13,7 +13,7 @@ spec:
             medium: Memory
       restartPolicy: OnFailure
       initContainers:
-        - image: kotsbots-migrations
+        - image: kotsvalidation-migrations
           name: migrations-plan
           volumeMounts:
             - name: migrations
@@ -29,10 +29,10 @@ spec:
             - name: SCHEMAHERO_URI
               valueFrom:
                 secretKeyRef:
-                  name: kotsbots-postgres
+                  name: kotsvalidation-postgres
                   key: uri
       containers:
-        - image: kotsbots-migrations
+        - image: kotsvalidation-migrations
           name: migrations-apply
           volumeMounts:
             - name: migrations
@@ -46,6 +46,6 @@ spec:
             - name: SCHEMAHERO_URI
               valueFrom:
                 secretKeyRef:
-                  name: kotsbots-postgres
+                  name: kotsvalidation-postgres
                   key: uri
 

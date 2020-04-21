@@ -17,12 +17,12 @@ spec:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: kotsbots-postgres
+  name: kotsvalidation-postgres
   labels:
     app: postgres
 type: Opaque
 stringData:
-  uri: "postgresql://kotsbots:password@postgres/kotsbots?connect_timeout=10&application_name=kotsbots&sslmode=disable"
+  uri: "postgresql://kotsvalidation:password@postgres/kotsvalidation?connect_timeout=10&application_name=kotsvalidation&sslmode=disable"
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -40,17 +40,17 @@ spec:
     spec:
       containers:
       - name: postgres
-        image: kotsbots-postgres
+        image: kotsvalidation-postgres
         imagePullPolicy: IfNotPresent
         env:
         - name: PGDATA
           value: /var/lib/postgresql/data/pgdata
         - name: POSTGRES_USER
-          value: kotsbots
+          value: kotsvalidation
         - name: POSTGRES_PASSWORD
           value: password
         - name: POSTGRES_DB
-          value: kotsbots
+          value: kotsvalidation
         ports:
         - name: postgres
           containerPort: 5432
@@ -60,7 +60,7 @@ spec:
             - /bin/sh
             - -i
             - -c
-            - pg_isready -U kotsbots -h 127.0.0.1 -p 5432
+            - pg_isready -U kotsvalidation -h 127.0.0.1 -p 5432
           initialDelaySeconds: 30
           timeoutSeconds: 5
           failureThreshold: 3
@@ -70,22 +70,22 @@ spec:
             - /bin/sh
             - -i
             - -c
-            - pg_isready -U kotsbots -h 127.0.0.1 -p 5432
+            - pg_isready -U kotsvalidation -h 127.0.0.1 -p 5432
           initialDelaySeconds: 5
           timeoutSeconds: 1
           periodSeconds: 10
         volumeMounts:
-        - name: kotsbots-datadir
+        - name: kotsvalidation-datadir
           mountPath: /var/lib/postgresql/data
 
       volumes:
-      - name: kotsbots-datadir
+      - name: kotsvalidation-datadir
         persistentVolumeClaim:
-          claimName: kotsbots-datadir
+          claimName: kotsvalidation-datadir
 
   volumeClaimTemplates:
   - metadata:
-      name: kotsbots-datadir
+      name: kotsvalidation-datadir
     spec:
       accessModes:
       - "ReadWriteOnce"

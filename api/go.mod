@@ -1,4 +1,4 @@
-module github.com/replicatedhq/kots-bots/api
+module github.com/replicatedhq/kots-validation/api
 
 go 1.14
 

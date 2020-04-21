@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/replicatedhq/kots-bots/api/pkg/logger"
+	"github.com/replicatedhq/kots-validation/api/pkg/logger"
 )
 
 type Handlers struct {

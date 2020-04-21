@@ -15,5 +15,5 @@ build-kots: deps
 
 .PHONY: publish
 publish:
-	docker build -f deploy/Dockerfile -t registry.replicated.com/kots-bots/web:$${GITHUB_SHA} .
-	docker push registry.replicated.com/kots-bots/web:$${GITHUB_SHA}
+	docker build -f deploy/Dockerfile -t registry.replicated.com/kots-validation/web:$${GITHUB_SHA} .
+	docker push registry.replicated.com/kots-validation/web:$${GITHUB_SHA}

@@ -18,7 +18,7 @@ build-api:
 	mkdir -p bin
 	go build \
 		-i \
-		-o ./bin/kotsbots-api \
+		-o ./bin/kotsvalidation-api \
 		./cmd
 
 
@@ -32,11 +32,11 @@ vet:
 
 .PHONY: run
 run:
-	./bin/kotsbots-api run
+	./bin/kotsvalidation-api run
 
 .PHONY: publish
 publish:
-	docker build -f deploy/Dockerfile -t registry.replicated.com/kots-bots/api:$${GITHUB_SHA} .
-	docker push registry.replicated.com/kots-bots/api:$${GITHUB_SHA}
+	docker build -f deploy/Dockerfile -t registry.replicated.com/kots-validation/api:$${GITHUB_SHA} .
+	docker push registry.replicated.com/kots-validation/api:$${GITHUB_SHA}
 
 

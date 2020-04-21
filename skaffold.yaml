@@ -7,12 +7,12 @@ build:
     concurrency: 0
 
   artifacts:
-    - image: kotsbots-api
+    - image: kotsvalidation-api
       context: "./api"
       docker:
         dockerfile: ./Dockerfile.skaffold
 
-    - image: kotsbots-postgres
+    - image: kotsvalidation-postgres
       context: "./migrations/fixtures"
       docker:
         dockerfile: ./deploy/Dockerfile

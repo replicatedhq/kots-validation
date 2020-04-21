@@ -11,7 +11,7 @@ import (
 
 func RootCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "kotsbots-server api",
+		Use: "kotsvalidation-server api",
 		PreRun: func(cmd *cobra.Command, args []string) {
 			viper.BindPFlags(cmd.Flags())
 		},
@@ -37,6 +37,6 @@ func InitAndExecute() {
 }
 
 func initConfig() {
-	viper.SetEnvPrefix("KOTSBOTS")
+	viper.SetEnvPrefix("kotsvalidation")
 	viper.AutomaticEnv()
 }

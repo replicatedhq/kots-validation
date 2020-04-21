@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
-	"github.com/replicatedhq/kots-bots/api/pkg/handlers"
+	"github.com/replicatedhq/kots-validation/api/pkg/handlers"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -42,7 +42,7 @@ func RunCmd() *cobra.Command {
 				ReadTimeout:  15 * time.Second,
 			}
 
-			fmt.Printf("Starting kotsbots-server API on port %d...\n", 3000)
+			fmt.Printf("Starting kotsvalidation-server API on port %d...\n", 3000)
 
 			log.Fatal(srv.ListenAndServe())
 

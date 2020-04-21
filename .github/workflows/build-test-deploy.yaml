@@ -70,7 +70,7 @@ jobs:
           kustomize_version: "2.0.3"
           kustomize_build_dir: "api/kustomize/overlays/kots"
           kustomize_output_file: "kots/api.yaml"
-          kustomize_set_image: "kotsbots-api=registry.replicated.com/kots-bots/api:kots-${{ github.sha }}"
+          kustomize_set_image: "kotsvalidation-api=registry.replicated.com/kots-validation/api:kots-${{ github.sha }}"
 
       - name: "kustomize build migrations kots"
         uses: marccampbell/kustomize-github-action@set-image
@@ -78,7 +78,7 @@ jobs:
           kustomize_version: "2.0.3"
           kustomize_build_dir: "migrations/kustomize/overlays/kots"
           kustomize_output_file: "kots/schema.yaml"
-          kustomize_set_image: "kotsbots-migrations=registry.replicated.com/kots-bots/migrations:${{ github.sha }}"
+          kustomize_set_image: "kotsvalidation-migrations=registry.replicated.com/kots-validation/migrations:${{ github.sha }}"
 
       - name: Split the api doc
         uses: marccampbell/yaml-toolbox/action/split@master
@@ -103,7 +103,7 @@ jobs:
         id: lint-action
         uses: replicatedhq/action-kots-lint@v0.1.0
         with:
-          replicated-app: "kots-bots"
+          replicated-app: "kots-validation"
           replicated-api-token: ${{ secrets.REPLICATED_API_TOKEN }}
           yaml-dir: ./kots
           extra-flags: --beta-linter
@@ -112,7 +112,7 @@ jobs:
         uses: replicatedhq/action-kots-release@master
         if: github.ref == 'refs/heads/release'
         with:
-          replicated-app: "kots-bots"
+          replicated-app: "kots-validation"
           replicated-api-token: ${{ secrets.REPLICATED_API_TOKEN }}
           yaml-dir: ./kots
           promote-channel: "Beta"
@@ -121,7 +121,7 @@ jobs:
         uses: replicatedhq/action-kots-release@master
         if: github.ref == 'refs/heads/master'
         with:
-          replicated-app: "kots-bots"
+          replicated-app: "kots-validation"
           replicated-api-token: ${{ secrets.REPLICATED_API_TOKEN }}
           yaml-dir: ./kots
           promote-channel: "Unstable"

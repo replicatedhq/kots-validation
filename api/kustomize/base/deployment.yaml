@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kotsbots-api
+  name: kotsvalidation-api
 spec:
   selector:
     matchLabels:
-      app: kotsbots-api
+      app: kotsvalidation-api
   template:
     metadata:
       labels:
-        app: kotsbots-api
+        app: kotsvalidation-api
     spec:
       restartPolicy: Always
       containers:
-        - name: kotsbots-api
-          image: kotsbots-api
+        - name: kotsvalidation-api
+          image: kotsvalidation-api
           imagePullPolicy: IfNotPresent
-          command: ["/kotsbots-api", "run"]
+          command: ["/kotsvalidation-api", "run"]
           ports:
             - name: http
               containerPort: 3000
