@@ -7,15 +7,15 @@ spec:
     - clusterInfo: {}
     - clusterResources: {}
     - data:
-      collectorName: literals/a-literal-value
-      data: |
-        this is an example of a literal value included in a support bundle
-        redact-me-first
+        collectorName: literals/a-literal-value
+        data: |
+          this is an example of a literal value included in a support bundle
+          redact-me-first
     - data:
-      collectorName: literals/a-config-value
-      data: |
-        this is an example of a value passed in from the config page and included in a support bundle
-        repl{{ ConfigOption "company_name" }}
+        collectorName: literals/a-config-value
+        data: |
+          this is an example of a value passed in from the config page and included in a support bundle
+          repl{{ ConfigOption "company_name" }}
   analyzers:
     - deploymentStatus:
         name: nginx
