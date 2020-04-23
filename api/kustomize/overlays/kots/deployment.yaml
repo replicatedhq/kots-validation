@@ -15,4 +15,8 @@ spec:
                   key: uri
             - name: FRONTEND_URL
               value: http://127.0.0.1:30080
+            - name: COMPANY_NAME
+              value: '{{repl ConfigOption "company_name" }}'
+            - name: REDACTION_TARGET
+              value: redact-me-first
 
