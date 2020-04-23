@@ -26,3 +26,11 @@ spec:
           when: '{{repl ConfigOptionEquals "postgres_type" "external_postgres"}}'
           type: password
           default: db.mycompany.internal
+    - name: company
+      title: Company Information
+      description: Basic branding for the org
+      items:
+        - name: company_name
+          title: Company Name
+          type: text
+          default: my company name
