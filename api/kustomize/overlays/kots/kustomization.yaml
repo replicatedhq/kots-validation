@@ -3,3 +3,6 @@ bases:
 
 patches:
   - ./deployment.yaml
+
+resources:
+  - ./service.yaml
