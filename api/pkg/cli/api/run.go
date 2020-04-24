@@ -25,6 +25,7 @@ func RunCmd() *cobra.Command {
 			r.Use(mux.CORSMethodMiddleware(r))
 
 			r.HandleFunc("/healthz", handlers.Healthz).Methods("GET")
+			r.HandleFunc("/redact", handlers.Redact).Methods("GET")
 
 			// this is only served in kots
 			if os.Getenv("DISABLE_SPA_SERVING") != "1" {

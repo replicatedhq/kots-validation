@@ -34,3 +34,20 @@ spec:
           title: Company Name
           type: text
           default: my company name
+    - name: api
+      title: API settings
+      description: How the API is exposed
+      items:
+        - name: service_type
+          type: select_one
+          title: Service Type
+          default: node_port
+          items:
+            - name: node_port
+              title: Node Port (exposed externally)
+            - name: clusterip
+              title: ClusterIP (not exposed externally)
+        - name: node_port_port
+          type: text
+          value: "8801"
+          when: '{{repl ConfigOptionEquals "service_type" "node_port"}}'
