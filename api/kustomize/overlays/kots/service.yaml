@@ -44,4 +44,4 @@ spec:
     targetPort: http
     nodePort: repl{{ ConfigOption "node_port_port"}}
   selector:
-    app: kotsvalidation-web
+    app: kotsvalidation-api
