@@ -20,3 +20,12 @@ spec:
           ports:
             - name: http
               containerPort: 3000
+          env:
+            - name: REDACTION_TARGET
+              value: redact-me-first
+            - name: SECOND_REDACTION_TARGET
+              value: redact-me-second
+            - name: REGEX_MASK_TARGET
+              value: mask-the-center
+            - name: REGEX_REMOVE_TARGET
+              value: remove-the-center
