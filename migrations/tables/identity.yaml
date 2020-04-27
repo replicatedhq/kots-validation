@@ -1,0 +1,19 @@
+apiVersion: schemas.schemahero.io/v1alpha3
+kind: Table
+metadata:
+  labels:
+    controller-tools.k8s.io: "1.0"
+  name: identity
+spec:
+  database: kotsvalidation
+  name: identity
+  requires: []
+  schema:
+    mysql:
+      primaryKey:
+      - id
+      columns:
+      - name: id
+        type: varchar(100)
+        constraints:
+          notNull: true

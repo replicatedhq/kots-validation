@@ -9,7 +9,7 @@ spec:
         - name: kotsvalidation-api
           env:
             - name: DATABASE_URL
-              value: postgres://kotsvalidation:password@postgres.default.svc.cluster.local:5432/kotsvalidation?sslmode=disable
+              value: kotsvalidation:password@tcp(mysql.default.svc.cluster.local:3306)/kotsvalidation?parseTime=true
             - name: FRONTEND_URL
               value: http://127.0.0.1:30080
             - name: DISABLE_SPA_SERVING

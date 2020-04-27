@@ -2,6 +2,6 @@ bases:
   - ../../base
 
 resources:
-  - ./postgres.yaml
-  - ./kotsbots-postgres.yaml
+  - ./mysql.yaml
+  - ./kotsbots-mysql.yaml
 

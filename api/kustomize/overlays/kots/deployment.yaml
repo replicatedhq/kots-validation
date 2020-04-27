@@ -11,7 +11,7 @@ spec:
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
-                  name: kotsvalidation-postgres
+                  name: kotsvalidation-mysql
                   key: uri
             - name: FRONTEND_URL
               value: http://127.0.0.1:30080

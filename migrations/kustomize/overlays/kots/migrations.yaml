@@ -21,7 +21,7 @@ spec:
           args: ["plan"]
           env:
             - name: SCHEMAHERO_DRIVER
-              value: postgres
+              value: mysql
             - name: SCHEMAHERO_SPEC_FILE
               value: /tables
             - name: SCHEMAHERO_OUT
@@ -29,7 +29,7 @@ spec:
             - name: SCHEMAHERO_URI
               valueFrom:
                 secretKeyRef:
-                  name: kotsvalidation-postgres
+                  name: kotsvalidation-mysql
                   key: uri
       containers:
         - image: kotsvalidation-migrations
@@ -40,12 +40,12 @@ spec:
           args: ["apply"]
           env:
             - name: SCHEMAHERO_DRIVER
-              value: postgres
+              value: mysql
             - name: SCHEMAHERO_DDL
               value: /migrations/plan.yaml
             - name: SCHEMAHERO_URI
               valueFrom:
                 secretKeyRef:
-                  name: kotsvalidation-postgres
+                  name: kotsvalidation-mysql
                   key: uri
 
