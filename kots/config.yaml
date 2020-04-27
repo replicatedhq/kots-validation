@@ -8,22 +8,22 @@ spec:
       title: Database
       description: Database Options
       items:
-        - name: postgres_type
+        - name: db_type
           type: select_one
-          title: Postgres
-          default: embedded_postgres
+          title: MySQL
+          default: embedded_mysql
           items:
-            - name: embedded_postgres
-              title: Embedded Postgres
-            - name: external_postgres
-              title: External Postgres
-        - name: embedded_postgres_password
+            - name: embedded_mysql
+              title: Embedded MySQL
+            - name: external_mysql
+              title: External MySQL
+        - name: embedded_mysql_password
           hidden: true
           type: password
           value: "{{repl RandomString 32}}"
-        - name: external_postgres_uri
-          title: Postgres URI
-          when: '{{repl ConfigOptionEquals "postgres_type" "external_postgres"}}'
+        - name: external_mysql_uri
+          title: MySQL URI
+          when: '{{repl ConfigOptionEquals "db_type" "external_mysql"}}'
           type: password
           default: db.mycompany.internal
     - name: company

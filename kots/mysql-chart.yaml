@@ -1,0 +1,31 @@
+apiVersion: kots.io/v1beta1
+kind: HelmChart
+metadata:
+  name: mysql
+spec:
+  exclude: 'repl{{ ConfigOptionEquals `db_type` `external_mysql` }}'
+  
+  # chart identifies a matching chart from a .tgz
+  chart:
+    name: mysql
+    chartVersion: 1.6.2
+
+  # namespace: test
+
+  # values are used in the customer environment, as a pre-render step
+  # these values will be supplied to helm template
+  values:
+    mysqlRootPassword: "repl{{ ConfigOption `embedded_mysql_password` }}"
+    mysqlUser: "kotsvalidation"
+    mysqlPassword: "repl{{ ConfigOption `embedded_mysql_password` }}"
+    mysqlDatabase: "kotsvalidation"
+    service:
+      # this chart requires at least one annotation value
+      annotations:
+        app: "kots"
+    testFramework:
+      enabled: false
+      
+  # builder values provide a way to render the chart with all images
+  # and manifests. this is used in replicated to create airgap packages
+  builder: {}
