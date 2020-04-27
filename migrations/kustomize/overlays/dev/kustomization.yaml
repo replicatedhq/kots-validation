@@ -3,5 +3,5 @@ bases:
 
 resources:
   - ./postgres.yaml
-  - ./kotsvalidation-postgres.yaml
+  - ./kotsbots-postgres.yaml
 
