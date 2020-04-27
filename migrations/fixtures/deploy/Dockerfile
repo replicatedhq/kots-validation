@@ -1,6 +1,6 @@
-FROM postgres:10.7
+FROM mysql:5.7.28
 
-ENV POSTGRES_USER=kotsvalidation
-ENV POSTGRES_PASSWORD=password
-ENV POSTGRES_DB=kotsvalidation
-
+ENV MYSQL_ROOT_PASSWORD=password
+ENV MYSQL_USER=kotsvalidation
+ENV MYSQL_PASSWORD=password
+ENV MYSQL_DATABASE=kotsvalidation
