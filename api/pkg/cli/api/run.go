@@ -27,6 +27,9 @@ func RunCmd() *cobra.Command {
 			r.HandleFunc("/healthz", handlers.Healthz).Methods("GET")
 			r.HandleFunc("/redact", handlers.Redact).Methods("GET")
 
+			r.HandleFunc("/identity", handlers.GenerateIdentity).Methods("POST")
+			r.HandleFunc("/identity", handlers.GetIdentity).Methods("GET")
+
 			// this is only served in kots
 			if os.Getenv("DISABLE_SPA_SERVING") != "1" {
 				fmt.Printf("serving static handler\n")
