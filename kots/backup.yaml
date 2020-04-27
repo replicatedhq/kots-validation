@@ -3,5 +3,5 @@ kind: Backup
 metadata:
   name: backup
   annotations:
-    "kots.io/when": '{{repl ConfigOptionEquals "postgres_type" "embedded_postgres"}}'
+    "kots.io/when": '{{repl ConfigOptionEquals "db_type" "embedded_mysql"}}'
 spec: {}
