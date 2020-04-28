@@ -10,7 +10,7 @@ spec:
     name: mysql
     chartVersion: 1.6.2
 
-  # namespace: test
+  namespace: 'repl{{ Namespace}}'
 
   # values are used in the customer environment, as a pre-render step
   # these values will be supplied to helm template
