@@ -23,6 +23,13 @@ spec:
         app: "kots"
     testFramework:
       enabled: false
+
+    persistence:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 1Gi
+      annotations:
+        backup.velero.io/backup-volumes: data
       
   # builder values provide a way to render the chart with all images
   # and manifests. this is used in replicated to create airgap packages
