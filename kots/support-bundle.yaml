@@ -14,6 +14,17 @@ spec:
           redact-me-second
           mask-the-center
           remove-the-center
+    - data:
+        collectorName: literals/a-yaml-file
+        data: |
+          # this is a yaml file that can be redacted
+          abc:
+            xyz:
+            - a: b
+              c: d
+            - a: e
+              f: g
+
   analyzers:
     - deploymentStatus:
         name: nginx
