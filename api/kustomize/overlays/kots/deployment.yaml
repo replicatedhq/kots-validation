@@ -17,4 +17,6 @@ spec:
               value: http://127.0.0.1:30080
             - name: COMPANY_NAME
               value: '{{repl ConfigOption "company_name" }}'
+            - name: RANDOMSTRING
+              value: '{{repl RandomString 64}}'
 
