@@ -12,7 +12,7 @@ build:
       docker:
         dockerfile: ./Dockerfile.skaffold
 
-    - image: kotsvalidation-postgres
+    - image: kotsvalidation-mysql
       context: "./migrations/fixtures"
       docker:
         dockerfile: ./deploy/Dockerfile
