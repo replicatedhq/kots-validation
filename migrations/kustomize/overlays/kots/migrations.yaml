@@ -24,6 +24,8 @@ spec:
               value: postgres
             - name: SCHEMAHERO_SPEC_FILE
               value: /tables
+            - name: SCHEMAHERO_OVERWRITE
+              value: "true"
             - name: SCHEMAHERO_OUT
               value: /migrations/plan.yaml
             - name: SCHEMAHERO_URI
