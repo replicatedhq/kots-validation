@@ -138,8 +138,8 @@ spec:
         - name: SECRET_NAME
           value: webhook-server-secret
         - name: SCHEMAHERO_IMAGE_NAME
-          value: schemahero/schemahero:0.8.1
-        image: schemahero/schemahero-manager:0.8.1
+          value: schemahero/schemahero:0.8.2
+        image: schemahero/schemahero-manager:0.8.2
         imagePullPolicy: Always
         name: manager
         ports:
