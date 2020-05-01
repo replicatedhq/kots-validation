@@ -15,6 +15,8 @@ spec:
     - group: apps
       kind: Deployment
   allowRollback: true
+  statusInformers:
+    - deployment/kotsvalidation-api
   descriptor:
     version: "0.0.1"
     description: "Validate KOTS."
