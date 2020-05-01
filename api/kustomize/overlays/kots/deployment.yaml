@@ -19,4 +19,17 @@ spec:
               value: '{{repl ConfigOption "company_name" }}'
             - name: RANDOMSTRING
               value: '{{repl RandomString 64}}'
-
+          readinessProbe:
+            httpGet:
+              path: /identity
+              port: 3000
+            initialDelaySeconds: 5
+            timeoutSeconds: 1
+            periodSeconds: 15
+          livenessProbe:
+            httpGet:
+              path: /identity
+              port: 3000
+            initialDelaySeconds: 15
+            timeoutSeconds: 1
+            periodSeconds: 15
